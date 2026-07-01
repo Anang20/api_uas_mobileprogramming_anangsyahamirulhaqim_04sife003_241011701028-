@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\ProductController;
+use App\Http\Controllers\API\BannerController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -10,6 +11,10 @@ Route::post('products/{id}/upload-image', [ProductController::class, 'uploadImag
 
 // Route custom untuk mengurangi stok
 Route::patch('/products/{id}/reduce-stock', [ProductController::class, 'reduceStock']);
+
+Route::apiResource('banners', BannerController::class);
+
+Route::post('banners/{id}/upload-image', [BannerController::class, 'uploadImage']);
 
 //Akses gambar via API
 Route::get('/image/{filename}', function ($filename) {
