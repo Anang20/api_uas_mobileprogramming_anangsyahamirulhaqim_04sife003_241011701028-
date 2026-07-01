@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\BannerController;
 use Symfony\Component\HttpKernel\Profiler\Profile;
 
 Route::get('/', function () {
@@ -34,6 +35,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/product/{id}/edit', [ProductController::class, 'edit'])->name('product.edit');
     Route::put('/product/{id}', [ProductController::class, 'update'])->name('product.update');
     Route::delete('/product/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
+
+    //Route Banner
+    Route::get('/banner', [BannerController::class, 'index'])->name('banner.index');
+    Route::get('/banner/create', [BannerController::class, 'create'])->name('banner.create');
+    Route::post('/banner', [BannerController::class, 'store'])->name('banner.store');
+    Route::get('/banner/{id}', [BannerController::class, 'show'])->name('banner.show');
+    Route::get('/banner/{id}/edit', [BannerController::class, 'edit'])->name('banner.edit');
+    Route::put('/banner/{id}', [BannerController::class, 'update'])->name('banner.update');
+    Route::delete('/banner/{id}', [BannerController::class, 'destroy'])->name('banner.destroy');
 });
 
 require __DIR__.'/auth.php';

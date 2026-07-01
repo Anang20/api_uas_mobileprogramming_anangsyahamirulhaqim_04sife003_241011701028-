@@ -18,15 +18,17 @@ Route::post('banners/{id}/upload-image', [BannerController::class, 'uploadImage'
 
 //Akses gambar via API
 Route::get('/image/{filename}', function ($filename) {
-    $path = storage_path('app/public/products/' . $filename);
+    foreach (['products', 'banners'] as $folder) {
+        $path = storage_path('app/public/' . $folder . '/' . $filename);
 
-    if(!file_exists($path)) {
-        return response()->json(['error' => 'Image not found'], 404);
+        if (file_exists($path)) {
+            return response()->file($path, [
+                'Access-Control-Allow-Origin' => '*',
+            ]);
+        }
     }
 
-    return response()->file($path, [
-        'Access-Control-Allow-Origin' => '*',
-    ]);
+    return response()->json(['error' => 'Image not found'], 404);
 })->where('filename', '.*');
 
 //Check API
